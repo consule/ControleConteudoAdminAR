@@ -20,7 +20,6 @@ export class PerguntasfrequentesService {
     }
 
     getPerguntasfrequentes(): Observable<PerguntasFrequentesModel[]> {
-        console.log(this.http.get<any[]>(`${environment.api}/perguntasfrequentes`));
         return this.http.get<any[]>(`${environment.api}/perguntasfrequentes`);
     }
     // // Handle Errors
