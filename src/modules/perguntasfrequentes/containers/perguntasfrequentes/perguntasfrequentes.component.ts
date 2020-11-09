@@ -16,7 +16,7 @@ export class PerguntasfrequentesComponent implements OnInit {
     //         id: 7,
     //         pergunta: 'Brasil',
     //         resposta: 'Alemanha',
-    //     },
+    //     }, npm install -g @angular/cli@8.3.17
     // ];
     constructor(
         private router: Router,
