@@ -11,4 +11,8 @@ npm run generate:directive -- --path src/modules/test/directives --name Test
 npm run generate:service -- --path src/modules/test/services --name Test
 ```
 
+# Este repo é o front do repo:
+
+https://github.com/consule/GestaoDeConteudoBack
+
 
