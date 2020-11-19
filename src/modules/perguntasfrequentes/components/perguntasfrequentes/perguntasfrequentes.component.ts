@@ -1,7 +1,16 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { PerguntasFrequentesModel } from '@modules/perguntasfrequentes/models';
-import { PerguntasfrequentesService } from '@modules/perguntasfrequentes/services';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    Input,
+    OnInit,
+    QueryList,
+    ViewChildren,
+} from '@angular/core';
+import { SBSortableHeaderDirective, SortEvent } from '@modules/tables/directives';
+import { Country } from '@modules/tables/models';
+import { CountryService } from '@modules/tables/services';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'sb-perguntasfrequentes',
@@ -10,21 +19,31 @@ import { PerguntasfrequentesService } from '@modules/perguntasfrequentes/service
     styleUrls: ['perguntasfrequentes.component.scss'],
 })
 export class PerguntasfrequentesComponent implements OnInit {
-    // perguntasFrequentesModel: PerguntasFrequentesModel[];
+    @Input() pageSize = 4;
+
+    countries$!: Observable<Country[]>;
+    total$!: Observable<number>;
+    sortedColumn!: string;
+    sortedDirection!: string;
+
+    @ViewChildren(SBSortableHeaderDirective) headers!: QueryList<SBSortableHeaderDirective>;
+
     constructor(
-        private router: Router,
-        private perguntasFrequentesService: PerguntasfrequentesService
-    ) {
-        // this.perguntasFrequentesModel = [];
-    }
+        public countryService: CountryService,
+        private changeDetectorRef: ChangeDetectorRef
+    ) {}
+
     ngOnInit() {
-        // this.getPerguntasFrequentes();
+        this.countryService.pageSize = this.pageSize;
+        this.countries$ = this.countryService.countries$;
+        this.total$ = this.countryService.total$;
     }
 
-    // getPerguntasFrequentes() {
-    //     return this.perguntasFrequentesService.getPerguntasfrequentes().subscribe(perguntas => {
-    //         this.perguntasFrequentesModel = perguntas;
-    //     });
-    // }
+    onSort({ column, direction }: SortEvent) {
+        this.sortedColumn = column;
+        this.sortedDirection = direction;
+        this.countryService.sortColumn = column;
+        this.countryService.sortDirection = direction;
+        this.changeDetectorRef.detectChanges();
+    }
 }
-

@@ -20,6 +20,12 @@ import * as perguntasfrequentesGuards from './guards';
 /* Services */
 import * as perguntasfrequentesServices from './services';
 
+import { MatSliderModule } from '@angular/material/slider';
+import { MatTableModule } from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+
+
 @NgModule({
     imports: [
         CommonModule,
@@ -28,6 +34,11 @@ import * as perguntasfrequentesServices from './services';
         FormsModule,
         AppCommonModule,
         NavigationModule,
+        MatSliderModule, 
+        MatTableModule, 
+        MatFormFieldModule, 
+        MatInputModule
+        
     ],
     providers: [...perguntasfrequentesServices.services, ...perguntasfrequentesGuards.guards],
     declarations: [
